@@ -167,6 +167,11 @@ app.put("/postReply/:feedbackId/:commentId", async (req, res) => {
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 
+app.get("*", (req, res) => {
+  res.sendFile(
+    path.join(path.resolve(__dirname, "./client/build"), "index.html")
+  );
+});
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
