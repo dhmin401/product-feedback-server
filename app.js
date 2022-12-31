@@ -165,7 +165,7 @@ app.put("/postReply/:feedbackId/:commentId", async (req, res) => {
   }
 });
 
-app.use(express.static("./public"));
+app.use(express.static(path.resolve(__dirname, "./cliennt/build")));
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
