@@ -3,10 +3,16 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("client/build"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 
 app.get("/api/data", (req, res) => {
   try {
@@ -164,8 +170,6 @@ app.put("/postReply/:feedbackId/:commentId", async (req, res) => {
     res.status(500).send("Add reply failed - internal server error");
   }
 });
-
-app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
